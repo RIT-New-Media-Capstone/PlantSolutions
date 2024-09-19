@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../universal/general.css">
+    <style>body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f9;
+        font-family: Arial, sans-serif;
+      }
+      
+      .search-page {
+        width: 100%;
+        max-width: 800px;
+        padding: 20px;
+        text-align: center;
+      }
+      
+      textarea {
+        width: 100%;
+        height: 300px;
+        padding: 20px;
+        font-size: 18px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        resize: none; /* Prevents the textarea from being resized */
+      }
+      
+      textarea:focus {
+        border-color: #0097b2;
+        outline: none;
+      }
+      
+      button {
+        margin-top: 20px;
+        padding: 10px 30px;
+        font-size: 18px;
+        border: none;
+        color: black;
+        background: linear-gradient(90deg, #cdffd8, #94b9ff);
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      button:hover {
+        transition: background-color 0.6s ease;
+        background: linear-gradient(90deg, #a3e0b2, #6b8fd4);
+      }</style>
+</head>
+<body>
+    <div class="search-page">
+        <textarea id="search" placeholder="Type anything here..." autofocus></textarea>
+        <button id="search-btn">Search</button>
+      </div>
+    <script>document.getElementById('search-btn').addEventListener('click', function() {
+        const searchText = document.getElementById('search').value.trim();
+        
+        if (searchText) {
+          // Display the entered text in the console, for example
+          console.log("Search initiated for: ", searchText);
+          alert("You searched for: " + searchText);
+        } else {
+          alert("Please enter something in the text area.");
+        }
+      });
+      </script>
+</body>
+</html>

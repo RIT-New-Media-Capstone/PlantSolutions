@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../universal/general.css">
+    <style>
+        button{
+            background-color: #eaff82;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 19px;
+        }
+        #perfect{
+            color: black;
+            background: linear-gradient(90deg, #cdffd8, #94b9ff);
+        }
+        #perfect:hover{
+            transition: background-color 0.6s ease;
+            background: linear-gradient(90deg, #a3e0b2, #6b8fd4); 
+        }
+        #name{
+            color: black;
+        }
+        #filter{
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function openName() {
+            window.location.href = '../Act 2 - Search/predictive.html';
+        }
+        function openFilt() {
+            window.location.href = '../Act 2 - Search/filteredsearch.html';
+        }
+        function openPerf() {
+            window.location.href = '../Act 2 - Search/aiperfectsearch.html';
+        }
+    </script>
+    <button id="name" onclick= "openName()">Search by Plant Name</button>
+    <button id="filter" onclick="openFilt()">Filtered Search</button>
+    <button id="perfect" onclick="openPerf()">Perfect Plant Search</button>
+
+    
+</body>
+</html>
