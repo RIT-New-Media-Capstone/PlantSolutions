@@ -1,0 +1,33 @@
+{
+  
+  "name": "plant-solutions",
+  
+  "version": "1.0.0",
+  
+  "type": "module",
+  
+  "description": "New Media Capstone No Cyborg project",
+  
+  "main": "project/universal/bigscript.js",
+  
+  "scripts": {
+  
+    
+  "test": "echo \"Error: no test specified\" && exit 1"
+  
+  },
+  
+  "author": "Max, Andrew, Geoff",
+  
+  "license": "ISC",
+  
+  "dependencies": {
+  
+    
+  "node": "^22.9.0",
+  
+    
+  "openai": "^4.62.1"
+  
+  }
+}

@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const apiKey = "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";
+const apiKey = "org-C0V9tT5zjNoT3VLZp6IH4mwF";
 const openai = new OpenAI({
   apiKey: apiKey
 });
