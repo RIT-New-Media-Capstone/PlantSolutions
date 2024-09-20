@@ -1,0 +1,15 @@
+body{
+background: linear-gradient(90deg, #0097b2, #7ed957);
+text-align: center;
+}
+button{
+    cursor: pointer;
+}
+button:hover{
+    transition: background-color 0.3s ease;
+    background-color: #5aa73d;
+}
+button:active {
+    transform: translateY(2px); /* Moves the button down */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Reduces shadow to simulate pressing */
+  }

@@ -4,13 +4,14 @@
   
   "version": "1.0.0",
   
-  "type": "module",
-  
   "description": "New Media Capstone No Cyborg project",
   
   "main": "project/universal/bigscript.js",
   
   "scripts": {
+  
+    
+  "start": "node ./project/universal/server.js",
   
     
   "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,6 +23,9 @@
   "license": "ISC",
   
   "dependencies": {
+  
+    
+  "express": "^4.21.0",
   
     
   "node": "^22.9.0",
