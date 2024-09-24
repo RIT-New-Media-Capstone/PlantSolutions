@@ -1,0 +1,20 @@
+{
+    "plants": [
+        {
+            "species": "basicPlant",
+            "currentHydration": "100",
+            "hydrationGood": "70",
+            "hydrationMid" : "60",
+            "hydrationBad" : "50",
+            "hydrationCritical" : "25"
+        },
+        {
+            "species": "basicPlant2",
+            "currentHydration": "100",
+            "hydrationGood": "70",
+            "hydrationMid" : "60",
+            "hydrationBad" : "50",
+            "hydrationCritical" : "25"
+        }
+    ]
+}

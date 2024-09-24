@@ -2,9 +2,9 @@
  * Purpose: general utilities functions for various methods
 */
 
-import json from './data.json';
+import plantJson from './userPlants.json';
 
-var plantJson = json;
+//var plantJson = json;
 var activePlant;
 
 // grabs the hydration data from the ARDUINO,
@@ -21,9 +21,9 @@ const getHydrationAO = (plant = this.activePlant) => {
     currentHydration = getPlantData(plant, "currentHydration");
     hydrationDiff = hydration - currentHydration;
 
-    // check to see if the difference in hydration is less than 1%
+    // check to see if the difference in hydration is less than the threshold
     // this is to prevent constantly updating the front end for minor value changes
-    if (Math.abs(hydrationDiff) < 1) {
+    if (Math.abs(hydrationDiff) < hydrationThreshold) {
         return hydration;
     } else {
         return currentHydration;
