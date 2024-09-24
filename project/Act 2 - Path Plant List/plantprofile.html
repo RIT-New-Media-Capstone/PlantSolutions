@@ -22,6 +22,21 @@
     <h4>Location advice?</h4>
     <p>About</p>
    
+    <script>
+        // On page load, retrieve the plant details from localStorage and populate the page
+        window.onload = function() {
+          const plantDetails = JSON.parse(localStorage.getItem('plantDetails'));
+    
+          if (plantDetails) {
+            document.getElementById('plantName').textContent = plantDetails.name;
+            document.getElementById('scientificName').textContent = plantDetails.scientificName;
+            document.getElementById('temp').textContent = `Temperature: ${plantDetails.temp}`;
+            document.getElementById('water').textContent = `Water: ${plantDetails.water}`;
+            document.getElementById('sunlight').textContent = `Sunlight: ${plantDetails.sunlight}`;
+            document.getElementById('stats').textContent = plantDetails.stats;
+          }
+        }
+      </script>
 
 </body>
 </html>

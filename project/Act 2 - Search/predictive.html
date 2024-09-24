@@ -73,6 +73,24 @@
           return [];
         }
       }
+      async function fetchPlantDetails(plantName) {
+    try {
+      const response = await fetch('http://localhost:3000/api/plantDetails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ plantName })
+      });
+
+      const data = await response.json();
+      return data.details; // Detailed plant info
+    } catch (error) {
+      console.error('Error fetching plant details:', error);
+    }
+  }
+  const plantDetails = await fetchPlantDetails(item);
+            generateProfilePage(plantDetails);
     
       // Display suggestions as the user types
       searchInput.addEventListener('input', async function() {
@@ -94,7 +112,9 @@
                 searchInput.value = item; // Set input to selected item
                 suggestionsList.innerHTML = ''; // Clear suggestions
                 suggestionsList.style.display = 'none'; // Hide the list
+                
               });
+              
             });
           } else {
             suggestionsList.style.display = 'none'; // Hide suggestions if none are returned
@@ -110,6 +130,13 @@
           suggestionsList.style.display = 'none';
         }
       });
+      function generateProfilePage(plantDetails) {
+    // You can use localStorage to pass the plant details to a new page
+    localStorage.setItem('plantDetails', JSON.stringify(plantDetails));
+    
+    // Redirect to the profile page
+    window.location.href = 'plantProfile.html';
+  }
     </script>
 </body>
 </html>
