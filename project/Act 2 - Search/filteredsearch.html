@@ -5,8 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="../universal/general.css">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+        .container {
+          display: flex;
+          justify-content: space-between;
+          margin: 20px;
+        }
+        .category {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        h3 {
+          text-align: center;
+        }
+      </style>
 </head>
 <body>
+    <h3>Plant Preferences</h3>
+    <div class="container">
+      <!-- Plant Size -->
+      <div class="category">
+        <h4>Plant Size</h4>
+        <input type="checkbox" id="size1" name="size" value="1"> 1<br>
+        <input type="checkbox" id="size2" name="size" value="2"> 2<br>
+        <input type="checkbox" id="size3" name="size" value="3"> 3<br>
+        <input type="checkbox" id="size4" name="size" value="4"> 4<br>
+        <input type="checkbox" id="size5" name="size" value="5"> 5<br>
+      </div>
+  
+      <!-- Foliage -->
+      <div class="category">
+        <h4>Foliage</h4>
+        <input type="checkbox" id="foliage1" name="foliage" value="1"> 1<br>
+        <input type="checkbox" id="foliage2" name="foliage" value="2"> 2<br>
+        <input type="checkbox" id="foliage3" name="foliage" value="3"> 3<br>
+        <input type="checkbox" id="foliage4" name="foliage" value="4"> 4<br>
+        <input type="checkbox" id="foliage5" name="foliage" value="5"> 5<br>
+      </div>
+  
+      <!-- Water Neediness -->
+      <div class="category">
+        <h4>Water Neediness</h4>
+        <input type="checkbox" id="water1" name="water" value="1"> 1<br>
+        <input type="checkbox" id="water2" name="water" value="2"> 2<br>
+        <input type="checkbox" id="water3" name="water" value="3"> 3<br>
+        <input type="checkbox" id="water4" name="water" value="4"> 4<br>
+        <input type="checkbox" id="water5" name="water" value="5"> 5<br>
+      </div>
+  
+      <!-- Sunlight Need -->
+      <div class="category">
+        <h4>Sunlight Need</h4>
+        <input type="checkbox" id="sunlight1" name="sunlight" value="1"> 1<br>
+        <input type="checkbox" id="sunlight2" name="sunlight" value="2"> 2<br>
+        <input type="checkbox" id="sunlight3" name="sunlight" value="3"> 3<br>
+        <input type="checkbox" id="sunlight4" name="sunlight" value="4"> 4<br>
+        <input type="checkbox" id="sunlight5" name="sunlight" value="5"> 5<br>
+      </div>
+  
+      <!-- Ideal Temperature -->
+      <div class="category">
+        <h4>Ideal Temperature</h4>
+        <input type="checkbox" id="temperature1" name="temperature" value="1"> 1<br>
+        <input type="checkbox" id="temperature2" name="temperature" value="2"> 2<br>
+        <input type="checkbox" id="temperature3" name="temperature" value="3"> 3<br>
+        <input type="checkbox" id="temperature4" name="temperature" value="4"> 4<br>
+        <input type="checkbox" id="temperature5" name="temperature" value="5"> 5<br>
+      </div>
+    </div>
+  
+    <button onclick="submitSelections()">Submit</button>
+  
+    <script>
+      function submitSelections() {
+        // Collect selected checkboxes
+        const selected = {
+          size: getSelectedValues('size'),
+          foliage: getSelectedValues('foliage'),
+          water: getSelectedValues('water'),
+          sunlight: getSelectedValues('sunlight'),
+          temperature: getSelectedValues('temperature')
+        };
+        
+        // Output to console
+        console.log('Selected preferences:', selected);
+      }
+  
+      function getSelectedValues(category) {
+        // Get checkboxes by name and return checked values
+        const checkboxes = document.getElementsByName(category);
+        const selectedValues = [];
+        checkboxes.forEach(checkbox => {
+          if (checkbox.checked) {
+            selectedValues.push(checkbox.value);
+          }
+        });
+        return selectedValues;
+      }
+    </script>
     
 </body>
 </html>

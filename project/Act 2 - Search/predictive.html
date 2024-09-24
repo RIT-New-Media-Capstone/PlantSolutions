@@ -74,6 +74,23 @@
         }
       }
     
+      async function fetchPlantDetails(plantName) {
+        try {
+          const response = await fetch('http://localhost:3000/api/plantDetails', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ plantName })
+          });
+    
+          const data = await response.json();
+          return data.details; // Detailed plant info
+        } catch (error) {
+          console.error('Error fetching plant details:', error);
+        }
+      }
+    
       // Display suggestions as the user types
       searchInput.addEventListener('input', async function() {
         const input = searchInput.value.trim();
@@ -89,11 +106,15 @@
               listItem.textContent = item;
               suggestionsList.appendChild(listItem);
     
-              // Add click event to select the suggestion
-              listItem.addEventListener('click', () => {
+              // Mark this function as async
+              listItem.addEventListener('click', async () => {
                 searchInput.value = item; // Set input to selected item
                 suggestionsList.innerHTML = ''; // Clear suggestions
                 suggestionsList.style.display = 'none'; // Hide the list
+    
+                // Fetch details for the selected plant and redirect
+                const plantDetails = await fetchPlantDetails(item);
+                generateProfilePage(plantDetails);
               });
             });
           } else {
@@ -104,12 +125,14 @@
         }
       });
     
-      // Hide suggestions when clicking outside the search box
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-container')) {
-          suggestionsList.style.display = 'none';
-        }
-      });
+      function generateProfilePage(plantDetails) {
+        // You can use localStorage to pass the plant details to a new page
+        localStorage.setItem('plantDetails', JSON.stringify(plantDetails));
+        
+        // Redirect to the profile page
+        window.location.href = 'plantProfile.html';
+      }
     </script>
+    
 </body>
 </html>
