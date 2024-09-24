@@ -1,81 +1,138 @@
-<script>
-  const searchInput = document.getElementById('search');
-  const suggestionsList = document.getElementById('suggestions');
-
-  async function fetchOpenAISuggestions(query) {
-    try {
-      const response = await fetch('http://localhost:3000/api/suggestions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query })
-      });
-
-      const data = await response.json();
-      return data.suggestions;
-    } catch (error) {
-      console.error('Error fetching suggestions:', error);
-      return [];
-    }
-  }
-
-  async function fetchPlantDetails(plantName) {
-    try {
-      const response = await fetch('http://localhost:3000/api/plantDetails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ plantName })
-      });
-
-      const data = await response.json();
-      return data.details; // Detailed plant info
-    } catch (error) {
-      console.error('Error fetching plant details:', error);
-    }
-  }
-
-  // Display suggestions as the user types
-  searchInput.addEventListener('input', async function() {
-    const input = searchInput.value.trim();
-
-    if (input.length > 0) {
-      const suggestions = await fetchOpenAISuggestions(input);
-      suggestionsList.innerHTML = '';
-
-      if (suggestions.length) {
-        suggestionsList.style.display = 'block'; // Show suggestions
-        suggestions.forEach(item => {
-          const listItem = document.createElement('li');
-          listItem.textContent = item;
-          suggestionsList.appendChild(listItem);
-
-          // Mark this function as async
-          listItem.addEventListener('click', async () => {
-            searchInput.value = item; // Set input to selected item
-            suggestionsList.innerHTML = ''; // Clear suggestions
-            suggestionsList.style.display = 'none'; // Hide the list
-
-            // Fetch details for the selected plant and redirect
-            const plantDetails = await fetchPlantDetails(item);
-            generateProfilePage(plantDetails);
-          });
-        });
-      } else {
-        suggestionsList.style.display = 'none'; // Hide suggestions if none are returned
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Search</title>
+    <link rel="stylesheet" type="text/css" href="/general.css">
+    <style>
+      .search-container {
+        position: relative;
+        width: 300px;
       }
-    } else {
-      suggestionsList.style.display = 'none'; // Hide suggestions if input is empty
-    }
-  });
 
-  function generateProfilePage(plantDetails) {
-    // You can use localStorage to pass the plant details to a new page
-    localStorage.setItem('plantDetails', JSON.stringify(plantDetails));
+      #search {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        outline: none;
+      }
+
+      .suggestions-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border: 1px solid #ddd;
+        border-top: none;
+        max-height: 150px;
+        overflow-y: auto;
+        display: none; /* Initially hidden */
+        position: absolute;
+        width: 100%;
+        background-color: white;
+        z-index: 10;
+      }
+
+      .suggestions-list li {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .suggestions-list li:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search for plants...">
+        <ul id="suggestions" class="suggestions-list"></ul>
+    </div>
+
+    <script>
+      const searchInput = document.getElementById('search');
+      const suggestionsList = document.getElementById('suggestions');
     
-    // Redirect to the profile page
-    window.location.href = 'plantProfile.html';
-  }
-</script>
+      async function fetchOpenAISuggestions(query) {
+        try {
+          const response = await fetch('http://localhost:3000/api/suggestions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query })
+          });
+    
+          const data = await response.json();
+          return data.suggestions;
+        } catch (error) {
+          console.error('Error fetching suggestions:', error);
+          return [];
+        }
+      }
+    
+      async function fetchPlantDetails(plantName) {
+        try {
+          const response = await fetch('http://localhost:3000/api/plantDetails', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ plantName })
+          });
+    
+          const data = await response.json();
+          return data.details; // Detailed plant info
+        } catch (error) {
+          console.error('Error fetching plant details:', error);
+        }
+      }
+    
+      // Display suggestions as the user types
+      searchInput.addEventListener('input', async function() {
+        const input = searchInput.value.trim();
+    
+        if (input.length > 0) {
+          const suggestions = await fetchOpenAISuggestions(input);
+          suggestionsList.innerHTML = '';
+    
+          if (suggestions.length) {
+            suggestionsList.style.display = 'block'; // Show suggestions
+            suggestions.forEach(item => {
+              const listItem = document.createElement('li');
+              listItem.textContent = item;
+              suggestionsList.appendChild(listItem);
+    
+              // Mark this function as async
+              listItem.addEventListener('click', async () => {
+                searchInput.value = item; // Set input to selected item
+                suggestionsList.innerHTML = ''; // Clear suggestions
+                suggestionsList.style.display = 'none'; // Hide the list
+    
+                // Fetch details for the selected plant and redirect
+                const plantDetails = await fetchPlantDetails(item);
+                generateProfilePage(plantDetails);
+              });
+            });
+          } else {
+            suggestionsList.style.display = 'none'; // Hide suggestions if none are returned
+          }
+        } else {
+          suggestionsList.style.display = 'none'; // Hide suggestions if input is empty
+        }
+      });
+    
+      function generateProfilePage(plantDetails) {
+        // You can use localStorage to pass the plant details to a new page
+        localStorage.setItem('plantDetails', JSON.stringify(plantDetails));
+        
+        // Redirect to the profile page
+        window.location.href = 'plantProfile.html';
+      }
+    </script>
+    
+</body>
+</html>
