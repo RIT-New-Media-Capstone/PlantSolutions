@@ -43,6 +43,16 @@ const sumOfHydration = (plant = this.activePlant) => {
 
 }
 
+getPlant = (speciesName) => {
+    plantJson.plants.forEach(plant => {
+        if (plant.species === speciesName) {
+            return plant;
+        }
+    });
+
+    return null;
+}
+
 changeActivePlant = (plant = plantJson.plants[0]) => {
     this.activePlant = plant;
 }
@@ -66,7 +76,7 @@ const addNewPlant = (species, hydrationGood, hydrationMid, hydrationBad, hydrati
 
     const newPlant = {
         "species": species,
-        "currentHydration": 0,
+        "currentHydration": null,
         "hydrationGood": hydrationGood,
         "hydrationMid": hydrationMid,
         "hydrationBad": hydrationBad,
