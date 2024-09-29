@@ -21,6 +21,10 @@
     <h5>Stats here</h5>
     <h4>Location advice?</h4>
     <p>About</p>
+
+    <br>
+    <h4>Arduino Hydration Data</h4>
+    <div id="hydrationData">Loading...</div>
    
     <script>
         // On page load, retrieve the plant details from localStorage and populate the page
@@ -36,6 +40,52 @@
             document.getElementById('stats').textContent = plantDetails.stats;
           }
         }
+
+          // WebSocket connection to receive hydration data
+          const ws = new WebSocket(`ws://localhost:3000`); // Adjust the URL if needed
+
+ws.onopen = () => {
+    console.log('WebSocket connection established');
+};
+
+ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.sensorValue}`; // Display sensor value in the HTML
+};
+
+ws.onclose = () => {
+    console.log('WebSocket connection closed');
+};
+
+// Optional: Fetch hydration data every 5 seconds from the server (if needed)
+function fetchHydrationData() {
+    fetch('/api/hydration')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.hydration}`;
+        })
+        .catch(error => {
+            console.error('Error fetching hydration data:', error);
+        });
+}
+
+        // // Function to fetch hydration data from the server
+        // function fetchHydrationData() {
+        //     fetch('/api/hydration')
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.hydration}`;
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching hydration data:', error);
+        //         });
+        // }
+
+        // // Fetch hydration data every 5 seconds
+        // setInterval(fetchHydrationData, 5000);
+
+        // // Initial fetch
+        // fetchHydrationData();
       </script>
 
 </body>
