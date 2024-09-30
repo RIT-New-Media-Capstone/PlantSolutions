@@ -1,49 +1,52 @@
 {
-  
+  
   "name": "plant-solutions",
-  
+  
   "version": "1.0.0",
-  
+  
   "description": "New Media Capstone No Cyborg project",
-  
+  
   "main": "project/universal/bigscript.js",
-  
+  
   "scripts": {
-  
-    
+  
+    
   "start": "node ./project/universal/server.js",
-  
-    
+  
+    
   "test": "echo \"Error: no test specified\" && exit 1"
-  
+  
   },
-  
+  
   "author": "Max, Andrew, Geoff",
-  
+  
   "license": "ISC",
-  
+  
   "dependencies": {
-  
-    
+  
+    
   "dotenv": "^16.4.5",
-  
-    
+  
+    
   "express": "^4.21.0",
-  
-    
+  
+    
   "johnny-five": "^2.1.0",
-  
-    
+  
+    
   "node": "^22.9.0",
-  
-    
+  
+    
   "openai": "^4.62.1",
-  
-    
+  
+    
+  "plant-solutions": "file:",
+  
+    
   "serialport": "^12.0.0",
-  
-    
+  
+    
   "ws": "^8.18.0"
-  
+  
   }
 }

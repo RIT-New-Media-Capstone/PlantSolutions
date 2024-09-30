@@ -6,6 +6,7 @@ const path = require('path');
 const PORT = 3000;
 
 const orgKey = "org-C0V9tT5zjNoT3VLZp6IH4mwF"; // Replace with your OpenAI API key
+// const apiKey = whatever geoff gives you
 const apiKey = process.env.OPENAI_API_KEY;
 
 const app = express();
