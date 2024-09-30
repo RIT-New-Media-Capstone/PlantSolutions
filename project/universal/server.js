@@ -13,8 +13,8 @@ const server = http.createServer(app); // Create an HTTP server
 const wss = new WebSocket.Server({ server }); // Create a WebSocket server
 
 app.use(express.json());
-app.use('/', express.static(path.resolve(`${__dirname}/../Act 2 - Search/`)));
-app.use('/', express.static(path.resolve(`${__dirname}/../Act 2 - Path Plant List/`)));
+app.use('/', express.static(path.resolve(`${__dirname}/../../hosted/`)));
+//app.use('/', express.static(path.resolve(`${__dirname}/../Act 2 - Path Plant List/`)));
 
 app.post('/api/suggestions', async (req, res) => {
   const query = req.body.query;
@@ -45,46 +45,46 @@ app.post('/api/suggestions', async (req, res) => {
   }
 });
 
-const five = require("johnny-five");
-const { SerialPort } = require('serialport'); // Import SerialPort
+// const five = require("johnny-five");
+// const { SerialPort } = require('serialport'); // Import SerialPort
 
-const board = new five.Board({
-  port: "/dev/ttyACM0" // Specify the Arduino port here
-});
+// const board = new five.Board({
+//   port: "/dev/ttyACM0" // Specify the Arduino port here
+// });
 
-let startTime = 0;
-let sensorVal1, sensorVal2 = 1000;
+// let startTime = 0;
+// let sensorVal1, sensorVal2 = 1000;
 
-board.on("ready", function() {
-  console.log("Board is ready and connected!");
+// board.on("ready", function() {
+//   console.log("Board is ready and connected!");
 
-  const sensor = new five.Sensor("A0"); // Use the analog pin A0
+//   const sensor = new five.Sensor("A0"); // Use the analog pin A0
 
-  sensor.on("data", function() {
-    sensorVal1 = this.value;
-    const currentTime = Date.now();
+//   sensor.on("data", function() {
+//     sensorVal1 = this.value;
+//     const currentTime = Date.now();
 
-    // Send the sensor value to all connected WebSocket clients
-    wss.clients.forEach(client => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify({ sensorValue: sensorVal1 }));
-      }
-    });
+//     // Send the sensor value to all connected WebSocket clients
+//     wss.clients.forEach(client => {
+//       if (client.readyState === WebSocket.OPEN) {
+//         client.send(JSON.stringify({ sensorValue: sensorVal1 }));
+//       }
+//     });
 
-    // If the difference between the current and previous value is greater than 100, print
-    if (Math.abs(sensorVal1 - sensorVal2) > 100) {
-      console.log(sensorVal1);
-    }
+//     // If the difference between the current and previous value is greater than 100, print
+//     if (Math.abs(sensorVal1 - sensorVal2) > 100) {
+//       console.log(sensorVal1);
+//     }
 
-    // Every minute the current value is printed
-    if (currentTime - startTime >= 60000) {
-      console.log(sensorVal1);
-      startTime = currentTime;
-    }
+//     // Every minute the current value is printed
+//     if (currentTime - startTime >= 60000) {
+//       console.log(sensorVal1);
+//       startTime = currentTime;
+//     }
 
-    sensorVal2 = sensorVal1; // Update the previous value
-  });
-});
+//     sensorVal2 = sensorVal1; // Update the previous value
+//   });
+// });
 
 // Start the server
 server.listen(PORT, () => {
