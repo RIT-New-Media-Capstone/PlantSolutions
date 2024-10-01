@@ -1,7 +1,7 @@
 {
     "plants": [
         {
-            "species": "basicPlant",
+            "species": "Geoff Aloe",
             "currentHydration": "100",
             "hydrationGood": "70",
             "hydrationMid" : "60",
@@ -9,7 +9,7 @@
             "hydrationCritical" : "25"
         },
         {
-            "species": "basicPlant2",
+            "species": "Max Pine",
             "currentHydration": "100",
             "hydrationGood": "70",
             "hydrationMid" : "60",

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,81 @@
     <link rel="stylesheet" type="text/css" href="../universal/general.css">
     <style></style>
 </head>
+
 <body>
     <h3>Your Plants</h3>
     <hr>
-    <ul>
-        <a href="plantprofile.html">Plant 1</a>
+    <ul id="plant-ul">
     </ul>
-    
-    <script></script>
+
+    <script type="module">
+        /* Author(s): Andrew Black, Geoff
+         * Purpose: Script exists to load in user plants from userPlants.json
+         * found in ./project/universal, utilizing utilities.js
+         */
+
+        import * as utilities from '../project/universal/utilities.js';
+
+        const href = 'plantprofile.html';
+
+        // updates the ul in the html to include all plants,
+        // setting an onclick event as well to account for updating
+        // the active plant in utilities.js
+        const updatePlants = () => {
+            var plantNames = utilities.getAllPlantNames();
+            console.log(plantNames);
+            console.log(utilities.changeActivePlant('Max Pine'));
+
+            const ul = document.getElementById('plant-ul');
+
+            plantNames.forEach(plant => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+
+                a.href = '#';
+                a.textContent = plant;
+
+                // onclick changes active plant in utilities.js
+                // so the href page can load in the correct active
+                // plant upon click
+                a.onclick = async (event) => {
+                    event.preventDefault();
+
+                    const success = utilities.changeActivePlant(plant);
+
+                    if (success) {
+
+                        window.location.href = href;
+                        console.log("here i am");
+                    }
+
+                    else {
+                        console.error(success);
+                    }
+                };
+
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+
+
+        };
+
+        // initialize and load the JSON data before calling updatePlants
+        const initialize = async () => {
+            const success = await utilities.loadPlantsJson();
+            if (success) {
+                console.log("testing plantlist");
+                updatePlants();
+            } else {
+                console.log('Plant Data not yet Loaded');
+            }
+        };
+
+        window.onload = initialize; 
+    </script>
+
+
 </body>
+
 </html>

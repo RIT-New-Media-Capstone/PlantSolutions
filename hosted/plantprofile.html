@@ -1,92 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../universal/general.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="../universal/general.css">
 </head>
+
 <body>
-    <h1>Name of plant here</h1>
-    <h2>Scientific Name</h2>
-    <h3>Temp %</h3>
-    <h3>Water %</h3>
-    <h3>Sunlight %</h3>
-    <h4>how data is collected explained (For Sol+ users)</h4>
-    <br>
+  <h1 id="plantName">Name of plant here</h1>
+  <h2 id="scientificName">Scientific Name</h2>
+  <h3 id="temp">Temp %</h3>
+  <h3 id="water">Water %</h3>
+  <h3 id="sunlight">Sunlight %</h3>
+  <h4 id="stats">how data is collected explained (For Sol+ users)</h4>
+  <br>
 
-    <h4>Directions for solve</h4>
-    <br>
-    <h3>Plant Info</h3>
-    <h5>Stats here</h5>
-    <h4>Location advice?</h4>
-    <p>About</p>
+  <h4>Directions for solve</h4>
+  <br>
+  <h3>Plant Info</h3>
+  <h5>Stats here</h5>
+  <h4>Location advice?</h4>
+  <p>About</p>
 
-    <br>
-    <h4>Arduino Hydration Data</h4>
-    <div id="hydrationData">Loading...</div>
-   
-    <script>
-        // On page load, retrieve the plant details from localStorage and populate the page
-        window.onload = function() {
-          const plantDetails = JSON.parse(localStorage.getItem('plantDetails'));
+  <br>
+  <h4>Arduino Hydration Data</h4>
+  <div id="hydrationData">Loading...</div>
+
+  <script type="module">
+
+    import * as utilities from '../project/universal/utilities.js';
+
+    // adds information about the plant to the page
+    const addPlantInfoToPage = () => {
+
+      const storedPlant = localStorage.getItem('activePlant');
     
-          if (plantDetails) {
-            document.getElementById('plantName').textContent = plantDetails.name;
-            document.getElementById('scientificName').textContent = plantDetails.scientificName;
-            document.getElementById('temp').textContent = `Temperature: ${plantDetails.temp}`;
-            document.getElementById('water').textContent = `Water: ${plantDetails.water}`;
-            document.getElementById('sunlight').textContent = `Sunlight: ${plantDetails.sunlight}`;
-            document.getElementById('stats').textContent = plantDetails.stats;
-          }
-        }
+    if (storedPlant) {
+        const plantDetails = JSON.parse(storedPlant); // Parse the stored JSON
 
-//           // WebSocket connection to receive hydration data
-//           const ws = new WebSocket(`ws://localhost:3000`); // Adjust the URL if needed
+        document.getElementById('plantName').textContent = plantDetails.species;
+        // Uncomment and modify these lines as needed with actual keys from your plantDetails
+        // document.getElementById('scientificName').textContent = plantDetails.scientificName;
+        // document.getElementById('temp').textContent = `Temperature: ${plantDetails.temp}`;
+        document.getElementById('water').textContent = `Water: ${plantDetails.currentHydration}`;
+        // document.getElementById('sunlight').textContent = `Sunlight: ${plantDetails.sunlight}`;
+        document.getElementById('stats').textContent = `Good Hydration Level: ${plantDetails.hydrationGood}`;
+    }else{
 
-// ws.onopen = () => {
-//     console.log('WebSocket connection established');
-// };
+        document.getElementById('plantName').textContent = utilities.getPlantData('species');
+        //document.getElementById('scientificName').textContent = plantDetails.scientificName;
+        //document.getElementById('temp').textContent = `Temperature: ${plantDetails.temp}`;
+        document.getElementById('water').textContent = `Water: ${utilities.getPlantData('currentHydration')}`;
+       // document.getElementById('sunlight').textContent = `Sunlight: ${plantDetails.sunlight}`;
+        document.getElementById('stats').textContent = `Good Hydration Level: ${utilities.getPlantData('hydrationGood')}`;
+    }
 
-// ws.onmessage = (event) => {
-//     const data = JSON.parse(event.data);
-//     document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.sensorValue}`; // Display sensor value in the HTML
-// };
+    }
 
-// ws.onclose = () => {
-//     console.log('WebSocket connection closed');
-// };
+    // initialize and load the JSON data before calling updatePlants
+    const initialize = async () => {
+            const success = await utilities.loadPlantsJson();
+            if (success) { 
+                console.log("testing plantprofile");
+                console.log(utilities.getPlantData('species'));
+                addPlantInfoToPage(); 
+            } else {
+                console.log('Plant Data not yet Loaded');
+            }
+        };
 
-// // Optional: Fetch hydration data every 5 seconds from the server (if needed)
-// function fetchHydrationData() {
-//     fetch('/api/hydration')
-//         .then(response => response.json())
-//         .then(data => {
-//             document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.hydration}`;
-//         })
-//         .catch(error => {
-//             console.error('Error fetching hydration data:', error);
-//         });
-// }
+     window.onload = initialize; 
 
-        // // Function to fetch hydration data from the server
-        // function fetchHydrationData() {
-        //     fetch('/api/hydration')
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.hydration}`;
-        //         })
-        //         .catch(error => {
-        //             console.error('Error fetching hydration data:', error);
-        //         });
-        // }
+    //commented out block of code may make a return one day
+    /*
+    // On page load, retrieve the plant details from localStorage and populate the page
+    window.onload = function () {
 
-        // // Fetch hydration data every 5 seconds
-        // setInterval(fetchHydrationData, 5000);
+      
+      
+       const plantDetails = JSON.parse(localStorage.getItem('plantDetails'));
 
-        // // Initial fetch
-        // fetchHydrationData();
-      </script>
+      if (plantDetails) {
+        document.getElementById('plantName').textContent = plantDetails.name;
+        document.getElementById('scientificName').textContent = plantDetails.scientificName;
+        document.getElementById('temp').textContent = `Temperature: ${plantDetails.temp}`;
+        document.getElementById('water').textContent = `Water: ${plantDetails.water}`;
+        document.getElementById('sunlight').textContent = `Sunlight: ${plantDetails.sunlight}`;
+        document.getElementById('stats').textContent = plantDetails.stats;
+      } 
+    }*/
+
+    //           // WebSocket connection to receive hydration data
+    //           const ws = new WebSocket(`ws://localhost:3000`); // Adjust the URL if needed
+
+    // ws.onopen = () => {
+    //     console.log('WebSocket connection established');
+    // };
+
+    // ws.onmessage = (event) => {
+    //     const data = JSON.parse(event.data);
+    //     document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.sensorValue}`; // Display sensor value in the HTML
+    // };
+
+    // ws.onclose = () => {
+    //     console.log('WebSocket connection closed');
+    // };
+
+    // // Optional: Fetch hydration data every 5 seconds from the server (if needed)
+    // function fetchHydrationData() {
+    //     fetch('/api/hydration')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.hydration}`;
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching hydration data:', error);
+    //         });
+    // }
+
+    // // Function to fetch hydration data from the server
+    // function fetchHydrationData() {
+    //     fetch('/api/hydration')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             document.getElementById('hydrationData').textContent = `Current Hydration Level: ${data.hydration}`;
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching hydration data:', error);
+    //         });
+    // }
+
+    // // Fetch hydration data every 5 seconds
+    // setInterval(fetchHydrationData, 5000);
+
+    // // Initial fetch
+    // fetchHydrationData();
+  </script>
 
 </body>
+
 </html>

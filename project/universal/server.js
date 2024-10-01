@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 const express = require('express');
 const http = require('http'); // Import http module
 const WebSocket = require('ws'); // Import WebSocket
@@ -16,6 +16,8 @@ const wss = new WebSocket.Server({ server }); // Create a WebSocket server
 app.use(express.json());
 app.use('/', express.static(path.resolve(`${__dirname}/../../hosted/`)));
 //app.use('/', express.static(path.resolve(`${__dirname}/../Act 2 - Path Plant List/`)));
+// Serve static files from the project directory
+app.use('/project', express.static(path.resolve(`${__dirname}/../../project`)));
 
 app.post('/api/suggestions', async (req, res) => {
   const query = req.body.query;
