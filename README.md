@@ -3,13 +3,15 @@ All code for Plant Solutions team
 
 /---------------------------------\
 
+Dependencies: express, websockets, node/npm, 
+
 Push Edition: Initial Commit and 1st Draft 
 
 Front End notes: all site page files have been created and the basic flow and interaction is present. There needs to be more js for the AI integration. The website needs the visual work that it will get soon. 
 
-Back End Notes: n/a
+Back End Notes: needs org key and then api key which is .env
 
-Arduino Notes: n/a
+Arduino Notes: needs a moisture sensor, arduino uno, and assembly parts. needs to have a recognized usb port on your system
 
 Plant Solutions
 Authors: Andrew Black, Max Chu, Geoff Gracia
