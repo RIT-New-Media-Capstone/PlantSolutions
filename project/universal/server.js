@@ -30,10 +30,12 @@ app.post('/api/suggestions', async (req, res) => {
       body: JSON.stringify({
         model: "gpt-4",
         messages: [
-          { role: "user", content: `Suggest plants related to ${query}, but limit it to 10 results, but I just want to display the common names most relevant, no other data for now` }
+          { role: "user", content: `Suggest plants related to ${query}, but limit it to 10 results. I just want to display the common names that are most relevant to the query, no other data for now` }
         ]
       })
     });
+
+    
 
     const data = await response.json();
     const suggestions = data.choices[0].message.content.split('\n').filter(item => item);
