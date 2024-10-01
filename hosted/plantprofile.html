@@ -17,6 +17,8 @@
   <h4 id="stats">how data is collected explained (For Sol+ users)</h4>
   <br>
 
+  <button id="connectButton">Connect to Arduino</button>
+
   <h4>Directions for solve</h4>
   <br>
   <h3>Plant Info</h3>
@@ -31,6 +33,60 @@
   <script type="module">
 
     import * as utilities from '../project/universal/utilities.js';
+    let port;
+    let reader;
+
+    // Add a click event listener to the button
+    document.getElementById('connectButton').addEventListener('click', connect);
+
+    async function connect() {
+        try {
+            // Request the user to select a serial port
+            port = await navigator.serial.requestPort();
+            await port.open({ baudRate: 9600 }); // Open the port with the same baud rate as Arduino
+            readLoop(); // Start reading data
+        } catch (err) {
+            console.error("There was an error connecting to the port: ", err);
+        }
+    }
+
+    async function readLoop() {
+        const decoder = new TextDecoder("utf-8");
+        while (port.readable) {
+            try {
+                const reader = port.readable.getReader();
+                const { value, done } = await reader.read();
+                if (done) {
+                    // If there's no more data, break the loop
+                    break;
+                }
+
+                const sensorData = decoder.decode(value);
+                const sensorVal1 = parseInt(sensorData); // Parse the incoming data as integer
+
+                //Determines percentage of wetness; greater values are dry; lesser values are wet
+                let percentage = sensorVal1/1000;
+                if (percentage >= 1.0) {
+                    document.getElementById('hydrationData').innerHTML = "Your plant is dry, please water it!\n";
+                } else if (percentage >= 0.8) {
+                    document.getElementById('hydrationData').innerHTML = "Your plant has barely any water, please add more!\n";
+                } else if (percentage >= 0.6) {
+                    document.getElementById('hydrationData').innerHTML = "Your plant has moderate water levels, but it could use a little more moisture.\n";
+                } else if (percentage >= 0.4) {
+                    document.getElementById('hydrationData').innerHTML = "Your plant has sufficient water, no need to add more yet.\n";
+                } else if (percentage >= 0.2) {
+                    document.getElementById('hydrationData').innerHTML = "Your plant is well-watered, no need to worry!\n";
+                } else if (percentage >= 0) {
+                    document.getElementById('hydrationData').innerHTML = "Your plant is fully watered, great job!\n";
+                }
+
+                // Close the reader when done
+                reader.releaseLock();
+            } catch (error) {
+                console.error("Read error:", error);
+            }
+        }
+    }
 
     // adds information about the plant to the page
     const addPlantInfoToPage = () => {
