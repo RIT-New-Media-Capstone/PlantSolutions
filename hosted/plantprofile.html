@@ -6,6 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="./general.css">
+    <style>
+        #connectButton {
+  background: linear-gradient(135deg, #34d399, #3b82f6); /* Green to blue gradient */
+  border: none;
+  border-radius: 30px;
+  color: white;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); /* Subtle shadow */
+}
+
+#connectButton:hover {
+  transform: scale(1.05); /* Slight grow on hover */
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); /* Stronger shadow on hover */
+}
+
+#connectButton:active {
+  transform: scale(0.98); /* Shrink when clicked */
+}
+    </style>
 </head>
 
 <body>
@@ -17,7 +41,7 @@
   <h4 id="stats">how data is collected explained (For Sol+ users)</h4>
   <br>
 
-  <button id="connectButton">Connect to Arduino</button>
+  
 
   <h4>Directions for solve</h4>
   <br>
@@ -27,8 +51,9 @@
   <p>About</p>
 
   <br>
+  <button id="connectButton">Connect to Arduino</button>
   <h4>Arduino Hydration Data</h4>
-  <div id="hydrationData">Loading...</div>
+  <div id="hydrationData">Not authenticated</div>
 
   <script type="module">
 
