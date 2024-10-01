@@ -1,20 +1,59 @@
 {
+    "comment" : "These values were pulled from CHATGPT and not our application",  
     "plants": [
         {
-            "species": "basicPlant",
-            "currentHydration": "100",
+            "species": "Aloe Vera",
+            "currentHydration": null,
             "hydrationGood": "70",
-            "hydrationMid" : "60",
-            "hydrationBad" : "50",
-            "hydrationCritical" : "25"
+            "hydrationMid": "60",
+            "hydrationBad": "50",
+            "hydrationCritical": "25",
+            "daysBetweenWatering": 21
         },
         {
-            "species": "basicPlant2",
-            "currentHydration": "100",
-            "hydrationGood": "70",
-            "hydrationMid" : "60",
-            "hydrationBad" : "50",
-            "hydrationCritical" : "25"
+            "species": "Spider Plant",
+            "currentHydration": null,
+            "hydrationGood": "80",
+            "hydrationMid": "60",
+            "hydrationBad": "40",
+            "hydrationCritical": "20",
+            "daysBetweenWatering": 10
+        },
+        {
+            "species": "Peace Lily",
+            "currentHydration": null,
+            "hydrationGood": "90",
+            "hydrationMid": "70",
+            "hydrationBad": "50",
+            "hydrationCritical": "30",
+            "daysBetweenWatering": 7
+        },
+        {
+            "species": "Snake Plant",
+            "currentHydration": null,
+            "hydrationGood": "65",
+            "hydrationMid": "55",
+            "hydrationBad": "40",
+            "hydrationCritical": "20",
+            "daysBetweenWatering": 14
+        },
+        {
+            "species": "Pothos",
+            "currentHydration": null,
+            "hydrationGood": "85",
+            "hydrationMid": "65",
+            "hydrationBad": "45",
+            "hydrationCritical": "25",
+            "daysBetweenWatering": 12
+        },
+        {
+            "species": "Boston Fern",
+            "currentHydration": null,
+            "hydrationGood": "95",
+            "hydrationMid": "75",
+            "hydrationBad": "55",
+            "hydrationCritical": "35",
+            "daysBetweenWatering": 5
         }
     ]
 }
